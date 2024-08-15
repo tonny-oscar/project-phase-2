@@ -1,22 +1,36 @@
-import React, { useState } from 'react';
-import DesignSelector from './DesignSelector';
-import DesignDisplay from './DesignDisplay';
-import './App.css';
+import { useState } from 'react'
+import reactLogo from './assets/react.svg'
+import viteLogo from '/vite.svg'
+import './App.css'
+import Login from '../components/Login'
+import Signup from '../components/Signup'
+import { Route, Routes } from 'react-router-dom'
+import About from '../components/About'
+import ProtectedRoute from './components/ProtectedRoute'
 
-const App = () => {
-  const [selectedDesign, setSelectedDesign] = useState('');
-
-  const handleSelect = (design) => {
-    setSelectedDesign(design);
-  };
+function App() {
 
   return (
-    <div className="App">
-      <h1>Interior Design App</h1>
-      <DesignSelector onSelect={handleSelect} />
-      <DesignDisplay design={selectedDesign} />
-    </div>
-  );
-};
+    <>
+      <Routes>
+        <Route path='/' element={
+          <ProtectedRoute>
+            <Home />
+          </ProtectedRoute>
+        } />
+        <Route path='about' element={
+          <ProtectedRoute>
+            <About />
+          </ProtectedRoute>
+        } />
+        <Route path='login' element={<Login />} />
+        <Route path='signup' element={<Signup />} />
+      </Routes>
+      {/* <Home />
+      <Login />
+      <Signup /> */}
+    </>
+  )
+}
 
-export default App;
+export default App

@@ -1,9 +1,8 @@
 import React, { useState } from "react";
 import { Link, useNavigate, Navigate } from "react-router-dom";
-import { userAuth } from "../context/authContext";  // Ensure the path is correct
-import { signInWithEmailAndPassword } from "firebase/auth"; // Ensure firebase is properly configured
-import { auth } from "../firebase/auth";  // Ensure the path is correct
-
+import { userAuth } from "../src/Context/authContext";
+import { signInWithEmailAndPassword } from "firebase/auth";
+import { auth } from "../firebase/auth";  
 const Login = () => {
     const [formData, setFormData] = useState({
         email: "",
