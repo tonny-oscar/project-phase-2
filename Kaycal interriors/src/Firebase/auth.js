@@ -1,40 +1,56 @@
 import { auth } from "./firebase";
+import {
+    createUserWithEmailAndPassword,
+    GoogleAuthProvider,
+    sendPasswordResetEmail,
+    signInWithEmailAndPassword,
+    signInWithPopup,
+    updatePassword,
+    sendEmailVerification,
+} from "firebase/auth";
 
-import { createUserWithEmailAndPassword, GoogleAuthProvider, sendPasswordResetEmail, signInWithEmailAndPassword, updatePassword, } from "firebase/auth";
-
-// export const doCreateUsserWithEmailAndPassword = async (email, pasword)=> {
-//     return createUserWithEmailAndPassword(auth, email, pasword);
-// };
-
-export const doCreateUsserWithEmailAndPassword = async (email, pasword)=>{
-    return createUserWithEmailAndPassword(auth, email, pasword);
+// Create a user with email and password
+export const doCreateUserWithEmailAndPassword = async (email, password) => {
+    return createUserWithEmailAndPassword(auth, email, password);
 };
 
-export const doSignInWithEmailAndPassword = (email, password)=>{
+export const doSignInWithEmailAndPassword = async (email, password) => {
     return signInWithEmailAndPassword(auth, email, password);
 };
 
-export const doSignInWithEmailAndPasword = async ()=>{
+// Sign in with Google
+export const doSignInWithGoogle = async () => {
     const provider = new GoogleAuthProvider();
-    const results = await signInWithPopup(auth, provider);
-    //result.user
-    return results
-}
+    const result = await signInWithPopup(auth, provider);
+    return result;
+};
 
-export const doSignOut = ()=>{
+// Sign out
+export const doSignOut = async () => {
     return auth.signOut();
 };
 
-export const doPaswordReset = (email)=> {
-    return sendPasswordResetEmail(auth,email);
+// Send password reset email
+export const doPasswordReset = async (email) => {
+    return sendPasswordResetEmail(auth, email);
 };
 
-export const doPaswordResetChange = (password)=>{
-    return updatePassword(auth.currentUser, password);
+// Update user password
+export const doPasswordResetChange = async (password) => {
+    if (auth.currentUser) {
+        return updatePassword(auth.currentUser, password);
+    } else {
+        throw new Error("No user is currently signed in.");
+    }
 };
 
-export const doSendEmailVerification = ()=>{
-    return doSendEmailVerification(auth.currentUser, {
-        url: `${window.location.origin}/home`,
-    });
+// Send email verification
+export const doSendEmailVerification = async () => {
+    if (auth.currentUser) {
+        return sendEmailVerification(auth.currentUser, {
+            url: `${window.location.origin}/home`,
+        });
+    } else {
+        throw new Error("No user is currently signed in.");
+    }
 };

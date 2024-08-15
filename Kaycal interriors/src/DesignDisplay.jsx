@@ -16,4 +16,4 @@ const DesignDisplay = ({ design }) => {
   );
 };
 
-export default ImageDisplay;
+export default DesignDisplay;

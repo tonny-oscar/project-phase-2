@@ -11,4 +11,4 @@ const DesignSelector = ({ onSelect }) => {
   );
 };
 
-export default ImageSelector;
+export default DesignSelector;

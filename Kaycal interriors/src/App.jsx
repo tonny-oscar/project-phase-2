@@ -1,7 +1,6 @@
-// src/App.jsx
 import React, { useState } from 'react';
-import ImageSelector from './ImageSelector';
-import ImageDisplay from './Image display';
+import DesignSelector from './DesignSelector';
+import DesignDisplay from './DesignDisplay';
 import './App.css';
 
 const App = () => {
