@@ -1,8 +1,7 @@
-// src/components/DesignDisplay.jsx
 import React from 'react';
 
 const DesignDisplay = ({ design }) => {
-  const imageUrl = `/images/${design}.jpg`;
+  const imageUrl = `./images/${design}.jpg`;
 
   return (
     <div>
