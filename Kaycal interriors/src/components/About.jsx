@@ -4,7 +4,7 @@ import { userAuth } from "../context/authContext";
 
 const About = () => {
 
-    // const context = useContext(authContext);
+    //const context = useContext(authContext);
 
     const { name, color } = userAuth();
 

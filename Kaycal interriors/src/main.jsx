@@ -1,23 +1,17 @@
-import { StrictMode } from 'react';
-import { createRoot } from 'react-dom/client';
-import { BrowserRouter as Router } from 'react-router-dom';
-import App from './App.jsx'; 
-import './index.css'; 
-import { AuthContextProvider } from './context/authContext.jsx'; 
+import React from 'react';
+import ReactDOM from 'react-dom';
+import App from './App.jsx';
+import './index.css';
+import { AuthContextProvider } from './Context/authContext.js';
 
 const rootElement = document.getElementById('root');
 
 if (rootElement) {
-  createRoot(rootElement).render(
-    <StrictMode>
-      <Router>
+    ReactDOM.render(
         <AuthContextProvider>
-          <App />
-        </AuthContextProvider>
-      </Router>
-    </StrictMode>,
-  );
-} else {
-  console.error('Root element not found');
+            <App />
+        </AuthContextProvider>,
+        rootElement
+    );
 }
 
