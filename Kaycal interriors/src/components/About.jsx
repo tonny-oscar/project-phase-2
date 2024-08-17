@@ -1,6 +1,6 @@
 import React, {useContext} from "react";
 import { Link } from "react-router-dom";
-import { userAuth } from "../context/authContext";
+import { userAuth } from "../Context/authContext.jsx";
 
 const About = () => {
 

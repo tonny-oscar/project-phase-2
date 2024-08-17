@@ -5,8 +5,15 @@ import About from './components/About';
 import Login from './components/Login';
 import Signup from './components/Signup';
 import ProtectedRoute from './components/ProtectedRoute'; 
-import { userAuth } from "./Context/authContext";
+import { auth } from './Firebase/config';
 
+function images(){
+  return(
+    <div>
+      <h1>Hello world.</h1>
+    </div>
+  );
+}
 function App() {
   return (
     <Routes>

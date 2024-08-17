@@ -1,4 +1,4 @@
-import { auth } from "./firebase";
+import { auth } from "./config"; 
 import {
     createUserWithEmailAndPassword,
     GoogleAuthProvider,
@@ -11,46 +11,79 @@ import {
 
 // Create a user with email and password
 export const doCreateUserWithEmailAndPassword = async (email, password) => {
-    return createUserWithEmailAndPassword(auth, email, password);
-};
-
-export const doSignInWithEmailAndPassword = async (email, password) => {
-    return signInWithEmailAndPassword(auth, email, password);
-};
-
-// Sign in with Google
-export const doSignInWithGoogle = async () => {
-    const provider = new GoogleAuthProvider();
-    const result = await signInWithPopup(auth, provider);
-    return result;
-};
-
-// Sign out
-export const doSignOut = async () => {
-    return auth.signOut();
-};
-
-// Send password reset email
-export const doPasswordReset = async (email) => {
-    return sendPasswordResetEmail(auth, email);
-};
-
-// Update user password
-export const doPasswordResetChange = async (password) => {
-    if (auth.currentUser) {
-        return updatePassword(auth.currentUser, password);
-    } else {
-        throw new Error("No user is currently signed in.");
+    try {
+        const userCredential = await createUserWithEmailAndPassword(auth, email, password);
+        return userCredential;
+    } catch (error) {
+        console.error("Error creating user with email and password:", error);
+        throw error; 
     }
 };
 
-// Send email verification
+export const doSignInWithEmailAndPassword = async (email, password) => {
+    try {
+        const userCredential = await signInWithEmailAndPassword(auth, email, password);
+        return userCredential;
+    } catch (error) {
+        console.error("Error signing in with email and password:", error);
+        throw error; 
+    }
+};
+
+
+export const doSignInWithGoogle = async () => {
+    try {
+        const provider = new GoogleAuthProvider();
+        const result = await signInWithPopup(auth, provider);
+        return result;
+    } catch (error) {
+        console.error("Error signing in with Google:", error);
+        throw error; 
+    }
+};
+
+export const doSignOut = async () => {
+    try {
+        await auth.signOut();
+    } catch (error) {
+        console.error("Error signing out:", error);
+        throw error; 
+    }
+};
+
+export const doPasswordReset = async (email) => {
+    try {
+        await sendPasswordResetEmail(auth, email);
+    } catch (error) {
+        console.error("Error sending password reset email:", error);
+        throw error;
+    }
+};
+
+export const doPasswordResetChange = async (password) => {
+    try {
+        if (auth.currentUser) {
+            await updatePassword(auth.currentUser, password);
+        } else {
+            throw new Error("No user is currently signed in.");
+        }
+    } catch (error) {
+        console.error("Error updating password:", error);
+        throw error; 
+    }
+};
+
 export const doSendEmailVerification = async () => {
-    if (auth.currentUser) {
-        return sendEmailVerification(auth.currentUser, {
-            url: `${window.location.origin}/home`,
-        });
-    } else {
-        throw new Error("No user is currently signed in.");
+    try {
+        if (auth.currentUser) {
+            await sendEmailVerification(auth.currentUser, {
+                url: `${window.location.origin}/home`,
+            });
+        } else {
+            throw new Error("No user is currently signed in.");
+        }
+    } catch (error) {
+        console.error("Error sending email verification:", error);
+        throw error; 
     }
 };
